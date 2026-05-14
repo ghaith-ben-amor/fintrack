@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "ahmed-bhs/doctrine-doctor": "^1.1",
         "bacon/bacon-qr-code": "3.0",
         "cboden/ratchet": "^0.4.4",
