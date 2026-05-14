@@ -1,0 +1,11 @@
+<form
+    method="post"
+    action="{{ path('front_carte_delete', {'id': carte.id}) }}"
+    class="d-inline-block"
+    onsubmit="return confirm('Supprimer définitivement cette carte ?');"
+>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carte.id) }}">
+    <button type="submit" class="btn btn-sm btn-outline-danger btn-action-icon btn-sm" title="Supprimer">
+        <i class="fas fa-trash-alt" aria-hidden="true"></i><span class="visually-hidden">Supprimer</span>
+    </button>
+</form>

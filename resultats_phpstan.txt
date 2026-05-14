@@ -1,0 +1,1147 @@
+ ------ ------------------------------------------------------------------------------------------------ 
+  Line   Command\SetScheduledTransferEngineCommand.php                                                   
+ ------ ------------------------------------------------------------------------------------------------ 
+  19     Property App\Command\SetScheduledTransferEngineCommand::$resolver is never read, only written.  
+         🪪  property.onlyWritten                                                                        
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties               
+ ------ ------------------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Controller\Api\DocumentApiController.php                                                                 
+ ------ --------------------------------------------------------------------------------------------------------- 
+  58     Parameter #1 $utilisateur of method App\Entity\Document::setUtilisateur() expects App\Entity\User|null,  
+         Symfony\Component\Security\Core\User\UserInterface|null given.                                           
+         🪪  argument.type                                                                                        
+  100    Parameter #2 $initiator of method App\Service\DocumentSignService::initiateSignature() expects           
+         App\Entity\User, Symfony\Component\Security\Core\User\UserInterface|null given.                          
+         🪪  argument.type                                                                                        
+  148    Parameter #2 $archivedBy of method App\Service\DocumentArchiveService::archiveDocument() expects         
+         App\Entity\User, Symfony\Component\Security\Core\User\UserInterface|null given.                          
+         🪪  argument.type                                                                                        
+  173    Parameter #2 $restoredBy of method App\Service\DocumentArchiveService::restoreDocument() expects         
+         App\Entity\User, Symfony\Component\Security\Core\User\UserInterface|null given.                          
+         🪪  argument.type                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\Api\DocumentIntelligenceController.php                                                             
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  30     Property App\Controller\Api\DocumentIntelligenceController::$documentRepository is never read, only written.  
+         🪪  property.onlyWritten                                                                                      
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                             
+  64     Expression on left side of ?? is not nullable.                                                                
+         🪪  nullCoalesce.expr                                                                                         
+  213    Parameter #3 $user of method App\Service\DocumentCategorizationService::suggestFolder() expects               
+         App\Entity\User|null, Symfony\Component\Security\Core\User\UserInterface|null given.                          
+         🪪  argument.type                                                                                             
+ ------ -------------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------- 
+  Line   Controller\Api\TranslationController.php                                                             
+ ------ ----------------------------------------------------------------------------------------------------- 
+  22     Property App\Controller\Api\TranslationController::$documentRepository is never read, only written.  
+         🪪  property.onlyWritten                                                                             
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                    
+ ------ ----------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------- 
+  Line   Controller\AuthController.php                                                               
+ ------ -------------------------------------------------------------------------------------------- 
+  97     Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().  
+         🪪  method.notFound                                                                         
+  321    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().  
+         🪪  method.notFound                                                                         
+  439    Unreachable statement - code above always terminates.                                       
+         🪪  deadCode.unreachable                                                                    
+  534    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().  
+         🪪  method.notFound                                                                         
+  658    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().  
+         🪪  method.notFound                                                                         
+ ------ -------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------- 
+  Line   Controller\BackOffice\CompteController.php                                                     
+ ------ ----------------------------------------------------------------------------------------------- 
+  46     Strict comparison using === between DateTimeInterface and null will always evaluate to false.  
+         🪪  identical.alwaysFalse                                                                      
+ ------ ----------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Controller\BackOffice\FactureController.php                                                              
+ ------ --------------------------------------------------------------------------------------------------------- 
+  302    Instantiated class App\Controller\BackOffice\EntityNotFoundException not found.                          
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  302    Throwing object of an unknown class App\Controller\BackOffice\EntityNotFoundException.                   
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  346    Caught class App\Controller\BackOffice\UniqueConstraintViolationException not found.                     
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  348    Caught class App\Controller\BackOffice\ForeignKeyConstraintViolationException not found.                 
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  350    Caught class App\Controller\BackOffice\EntityNotFoundException not found.                                
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  351    Call to method getMessage() on an unknown class App\Controller\BackOffice\EntityNotFoundException.       
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  352    Caught class App\Controller\BackOffice\ValidationFailedException not found.                              
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+  354    Call to method getViolations() on an unknown class App\Controller\BackOffice\ValidationFailedException.  
+         🪪  class.notFound                                                                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                     
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\CloudConvertController.php                      
+ ------ ----------------------------------------------------------------------- 
+  37     Instantiated class CloudConvert\CloudConvert not found.                
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  43     Call to method addTask() on an unknown class CloudConvert\Models\Job.  
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  43     Instantiated class CloudConvert\Models\Job not found.                  
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  45     Instantiated class CloudConvert\Models\Task not found.                 
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  48     Call to method set() on an unknown class CloudConvert\Models\Task.     
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  48     Instantiated class CloudConvert\Models\Task not found.                 
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  53     Call to method set() on an unknown class CloudConvert\Models\Task.     
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  53     Instantiated class CloudConvert\Models\Task not found.                 
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  57     Call to method jobs() on an unknown class CloudConvert\CloudConvert.   
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  60     Call to method tasks() on an unknown class CloudConvert\CloudConvert.  
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+  62     Call to method jobs() on an unknown class CloudConvert\CloudConvert.   
+         🪪  class.notFound                                                     
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols   
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------ 
+  Line   Controller\FrontOffice\CompteController.php                                               
+ ------ ------------------------------------------------------------------------------------------ 
+  69     Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().  
+         🪪  method.notFound                                                                       
+ ------ ------------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\DocumentController.php                                                                  
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  36     Property App\Controller\FrontOffice\DocumentController::$twig is never read, only written.                     
+         🪪  property.onlyWritten                                                                                       
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                              
+  67     Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  82     Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  119    Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  138    Strict comparison using === between string and false will always evaluate to false.                            
+         🪪  identical.alwaysFalse                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+  148    Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  165    Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  173    Parameter #1 $signer of method App\Entity\Document::setSigner() expects App\Entity\User|null,                  
+         Symfony\Component\Security\Core\User\UserInterface given.                                                      
+         🪪  argument.type                                                                                              
+  200    Call to an undefined method Symfony\Component\Security\Core\User\UserInterface::getId().                       
+         🪪  method.notFound                                                                                            
+  823    Negated boolean expression is always true.                                                                     
+         🪪  booleanNot.alwaysTrue                                                                                      
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\EcheanceController.php                                                                  
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  86     Instanceof between App\Entity\User and App\Entity\User will always evaluate to true.                           
+         🪪  instanceof.alwaysTrue                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------ 
+  Line   Controller\FrontOffice\FactureController.php    
+ ------ ------------------------------------------------ 
+  280    Expression on left side of ?? is not nullable.  
+         🪪  nullCoalesce.expr                           
+ ------ ------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\HistoriqueController.php                                                          
+ ------ --------------------------------------------------------------------------------------------------------- 
+  49     Offset 'facture'|'produit'|'service' on array{produit: array{table: 'produit_audit', label: 'Produit'},  
+         service: array{table: 'service_audit', label: 'Service'}, facture: array{table: 'facture_audit', label:  
+         'Facture'}} in isset() always exists and is not nullable.                                                
+         🪪  isset.offset                                                                                         
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\ProduitController.php                                               
+ ------ ------------------------------------------------------------------------------------------- 
+  101    Call to function is_array() with list<array<string, mixed>> will always evaluate to true.  
+         🪪  function.alreadyNarrowedType                                                           
+  203    Expression on left side of ?? is not nullable.                                             
+         🪪  nullCoalesce.expr                                                                      
+ ------ ------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------ 
+  Line   Controller\FrontOffice\ServiceController.php    
+ ------ ------------------------------------------------ 
+  225    Expression on left side of ?? is not nullable.  
+         🪪  nullCoalesce.expr                           
+ ------ ------------------------------------------------ 
+
+ ------ -------------------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\ServiceRecommendationController.php                                              
+ ------ -------------------------------------------------------------------------------------------------------- 
+  82     Call to an undefined method App\Controller\FrontOffice\ServiceRecommendationController::getDoctrine().  
+         🪪  method.notFound                                                                                     
+  139    Call to an undefined method App\Controller\FrontOffice\ServiceRecommendationController::getDoctrine().  
+         🪪  method.notFound                                                                                     
+  149    Call to an undefined method App\Controller\FrontOffice\ServiceRecommendationController::getDoctrine().  
+         🪪  method.notFound                                                                                     
+ ------ -------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\FrontOffice\TransactionController.php                                                               
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  137    Offset 'provider' on array{country_code: string|null, country_name: string|null, city: string|null, latitude:  
+         float|null, longitude: float|null, risk_score: int, decision: string, provider: string} on left side of ??     
+         always exists and is not nullable.                                                                             
+         🪪  nullCoalesce.offset                                                                                        
+  138    Offset 'provider' on array{country_code: string|null, country_name: string|null, city: string|null, latitude:  
+         float|null, longitude: float|null, risk_score: int, decision: string, provider: string} on left side of ??     
+         always exists and is not nullable.                                                                             
+         🪪  nullCoalesce.offset                                                                                        
+  412    Variable $cardIds in empty() always exists and is not falsy.                                                   
+         🪪  empty.variable                                                                                             
+  418    Instanceof between App\Entity\CarteVirtuelle and App\Entity\CarteVirtuelle will always evaluate to true.       
+         🪪  instanceof.alwaysTrue                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\MessageController.php                                                                               
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  202    If condition is always true.                                                                                   
+         🪪  if.alwaysTrue                                                                                              
+  302    Instanceof between App\Entity\User and App\Entity\User will always evaluate to true.                           
+         🪪  instanceof.alwaysTrue                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+  428    Instanceof between App\Entity\User and App\Entity\User will always evaluate to true.                           
+         🪪  instanceof.alwaysTrue                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Controller\OAuthController.php                                                                                 
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  17     Method KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface::redirect() invoked with 1 parameter, 2 required.  
+         🪪  arguments.count                                                                                            
+  31     Method KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface::redirect() invoked with 1 parameter, 2 required.  
+         🪪  arguments.count                                                                                            
+  45     Method KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface::redirect() invoked with 1 parameter, 2 required.  
+         🪪  arguments.count                                                                                            
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------- 
+  Line   DataFixtures\ORM\RecommendationFixtures.php                              
+ ------ ------------------------------------------------------------------------- 
+  12     Class App\DataFixtures\ORM\RecommendationFixtures extends unknown class  
+         Doctrine\Bundle\FixturesBundle\Fixture.                                  
+         🪪  class.notFound (non-ignorable)                                       
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols     
+  50     Call to an undefined method App\Entity\User::setPassword().              
+         🪪  method.notFound                                                      
+  81     Undefined variable: $users                                               
+         🪪  variable.undefined                                                   
+ ------ ------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------- 
+  Line   Entity\ArchiveRecord.php                                                                               
+ ------ ------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\ArchiveRecord::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                         
+         🪪  property.unusedType                                                                                
+ ------ ------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Budget.php                                                                                              
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  17     Property App\Entity\Budget::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                        
+  120    Property App\Entity\Budget::$dateCreation (DateTime|null) does not accept DateTimeInterface|null.              
+         🪪  assign.propertyType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\CarteVirtuelle.php                                                                                      
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\CarteVirtuelle::$id (int|null) is never assigned int so it can be removed from the         
+         property type.                                                                                                 
+         🪪  property.unusedType                                                                                        
+  22     Property App\Entity\CarteVirtuelle::$numero_carte (string|null) is never assigned null so it can be removed    
+         from the property type.                                                                                        
+         🪪  property.unusedType                                                                                        
+  31     Property App\Entity\CarteVirtuelle::$solde (string|null) is never assigned null so it can be removed from the  
+         property type.                                                                                                 
+         🪪  property.unusedType                                                                                        
+  39     Property App\Entity\CarteVirtuelle::$plafond (string|null) is never assigned null so it can be removed from    
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  43     Property App\Entity\CarteVirtuelle::$type (string|null) is never assigned null so it can be removed from the   
+         property type.                                                                                                 
+         🪪  property.unusedType                                                                                        
+  47     Property App\Entity\CarteVirtuelle::$devise (string|null) is never assigned null so it can be removed from     
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  55     Property App\Entity\CarteVirtuelle::$is_active (bool|null) is never assigned null so it can be removed from    
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Entity\Categorie.php                                                                                        
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  18     Property App\Entity\Categorie::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                       
+         🪪  property.unusedType                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\ChatConversation.php                                                                               
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  16     Property App\Entity\ChatConversation::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                            
+         🪪  property.unusedType                                                                                   
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\ChatMessage.php                                                                                        
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  17     Property App\Entity\ChatMessage::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                         
+         🪪  property.unusedType                                                                                       
+ ------ -------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Compte.php                                                                                              
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  19     Property App\Entity\Compte::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Credit.php                                                                                              
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  14     Property App\Entity\Credit::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Depense.php                                                                                        
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  15     Property App\Entity\Depense::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                     
+         🪪  property.unusedType                                                                                   
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Document.php                                                                                        
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  16     Property App\Entity\Document::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                      
+         🪪  property.unusedType                                                                                    
+ ------ ----------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Entity\DocumentVersion.php                                                                               
+ ------ --------------------------------------------------------------------------------------------------------- 
+  16     Property App\Entity\DocumentVersion::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                           
+         🪪  property.unusedType                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Dossier.php                                                                                        
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  17     Property App\Entity\Dossier::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                     
+         🪪  property.unusedType                                                                                   
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Draft.php                                                                                              
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  15     Property App\Entity\Draft::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                       
+ ------ -------------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Echeance.php                                                                                        
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  14     Property App\Entity\Echeance::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                      
+         🪪  property.unusedType                                                                                    
+ ------ ----------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Facture.php                                                                                        
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  16     Property App\Entity\Facture::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                     
+         🪪  property.unusedType                                                                                   
+  61     Property App\Entity\Facture::$produitServiceConstraint is unused.                                         
+         🪪  property.unused                                                                                       
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                         
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Entity\MailDeliveryLog.php                                                                               
+ ------ --------------------------------------------------------------------------------------------------------- 
+  19     Property App\Entity\MailDeliveryLog::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                           
+         🪪  property.unusedType                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Pack.php                                                                                              
+ ------ ------------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\Pack::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                      
+ ------ ------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Portefeuille.php                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  17     Property App\Entity\Portefeuille::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                          
+         🪪  property.unusedType                                                                                        
+  31     Property App\Entity\Portefeuille::$solde_total (string|null) is never assigned null so it can be removed from  
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  36     Property App\Entity\Portefeuille::$devise_principale (string|null) is never assigned null so it can be         
+         removed from the property type.                                                                                
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Produit.php                                                                                        
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\Produit::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                     
+         🪪  property.unusedType                                                                                   
+  145    Property App\Entity\Produit::$dateCreation (DateTime|null) does not accept DateTimeInterface|null.        
+         🪪  assign.propertyType                                                                                   
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Releve.php                                                                                              
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\Releve::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                        
+  37     Property App\Entity\Releve::$typeReleve (string|null) is never assigned null so it can be removed from the     
+         property type.                                                                                                 
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Service.php                                                                                        
+ ------ ---------------------------------------------------------------------------------------------------------- 
+  18     Property App\Entity\Service::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                     
+         🪪  property.unusedType                                                                                   
+ ------ ---------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Entity\ServiceCategory.php                                                                               
+ ------ --------------------------------------------------------------------------------------------------------- 
+  14     Property App\Entity\ServiceCategory::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                           
+         🪪  property.unusedType                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Entity\Signatory.php                                                                                        
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  19     Property App\Entity\Signatory::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                       
+         🪪  property.unusedType                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Entity\Signature.php                                                                                        
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  24     Property App\Entity\Signature::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                       
+         🪪  property.unusedType                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Entity\SignaturePolicy.php                                                                               
+ ------ --------------------------------------------------------------------------------------------------------- 
+  19     Property App\Entity\SignaturePolicy::$id (int|null) is never assigned int so it can be removed from the  
+         property type.                                                                                           
+         🪪  property.unusedType                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Entity\Tag.php                                                                                              
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  20     Property App\Entity\Tag::$id (int|null) is never assigned int so it can be removed from the property type.  
+         🪪  property.unusedType                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Transaction.php                                                                                        
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  15     Property App\Entity\Transaction::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                         
+         🪪  property.unusedType                                                                                       
+  21     Property App\Entity\Transaction::$devise (string|null) is never assigned null so it can be removed from the   
+         property type.                                                                                                
+         🪪  property.unusedType                                                                                       
+  30     Property App\Entity\Transaction::$statut (string|null) is never assigned null so it can be removed from the   
+         property type.                                                                                                
+         🪪  property.unusedType                                                                                       
+ ------ -------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\User.php                                                                                                
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  20     Property App\Entity\User::$id (int|null) is never assigned int so it can be removed from the property type.    
+         🪪  property.unusedType                                                                                        
+  50     Property App\Entity\User::$isActive (bool|null) is never assigned null so it can be removed from the property  
+         type.                                                                                                          
+         🪪  property.unusedType                                                                                        
+  59     Property App\Entity\User::$createdAt (DateTimeImmutable|null) is never assigned null so it can be removed      
+         from the property type.                                                                                        
+         🪪  property.unusedType                                                                                        
+  62     Property App\Entity\User::$updatedAt (DateTimeImmutable|null) is never assigned null so it can be removed      
+         from the property type.                                                                                        
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Entity\UserServiceInteraction.php                                                                           
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  16     Property App\Entity\UserServiceInteraction::$id (int|null) is never assigned int so it can be removed from  
+         the property type.                                                                                          
+         🪪  property.unusedType                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\Utilisateur.php                                                                                        
+ ------ -------------------------------------------------------------------------------------------------------------- 
+  16     Property App\Entity\Utilisateur::$id (int|null) is never assigned int so it can be removed from the property  
+         type.                                                                                                         
+         🪪  property.unusedType                                                                                       
+ ------ -------------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Entity\VirementProgramme.php                                                                                   
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  15     Property App\Entity\VirementProgramme::$id (int|null) is never assigned int so it can be removed from the      
+         property type.                                                                                                 
+         🪪  property.unusedType                                                                                        
+  33     Property App\Entity\VirementProgramme::$devise (string|null) is never assigned null so it can be removed from  
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  39     Property App\Entity\VirementProgramme::$frequence (string|null) is never assigned null so it can be removed    
+         from the property type.                                                                                        
+         🪪  property.unusedType                                                                                        
+  45     Property App\Entity\VirementProgramme::$statut (string|null) is never assigned null so it can be removed from  
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  48     Property App\Entity\VirementProgramme::$attempts (int|null) is never assigned null so it can be removed from   
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+  51     Property App\Entity\VirementProgramme::$actif (bool|null) is never assigned null so it can be removed from     
+         the property type.                                                                                             
+         🪪  property.unusedType                                                                                        
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------- 
+  Line   EventSubscriber\AccessDeniedSubscriber.php                                                             
+ ------ ------------------------------------------------------------------------------------------------------- 
+  53     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+  62     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+ ------ ------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------- 
+  Line   EventSubscriber\PostFormValidationSubscriber.php                                                       
+ ------ ------------------------------------------------------------------------------------------------------- 
+  49     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+  51     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+ ------ ------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------- 
+  Line   Form\DocumentType.php                                                 
+ ------ ---------------------------------------------------------------------- 
+  66     Class Symfony\UX\Dropzone\Form\DropzoneType not found.                
+         🪪  class.notFound                                                    
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols  
+ ------ ---------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------- 
+  Line   Form\TagAutocompleteField.php                                                           
+ ------ ---------------------------------------------------------------------------------------- 
+  16     Attribute class Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField does not exist.  
+         🪪  attribute.notFound                                                                  
+  27     Call to method toArray() on an unknown class App\Form\Collection.                       
+         🪪  class.notFound                                                                      
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                    
+  27     Class App\Form\Collection not found.                                                    
+         🪪  class.notFound                                                                      
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                    
+  79     Class Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType not found.                
+         🪪  class.notFound                                                                      
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                    
+ ------ ---------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------- 
+  Line   Security\AppAuthenticator.php                                                               
+ ------ -------------------------------------------------------------------------------------------- 
+  54     Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().  
+         🪪  method.notFound                                                                         
+ ------ -------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   Security\FaceIdAuthenticator.php                                                                            
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  97     Method App\Security\FaceIdAuthenticator::onAuthenticationSuccess() never returns null so it can be removed  
+         from the return type.                                                                                       
+         🪪  return.unusedType                                                                                       
+  126    Method App\Security\FaceIdAuthenticator::onAuthenticationFailure() never returns null so it can be removed  
+         from the return type.                                                                                       
+         🪪  return.unusedType                                                                                       
+  156    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\User>::findByEmail().                  
+         🪪  method.notFound                                                                                         
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Security\LoginFormAuthenticator.php                                                                            
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  56     Method App\Security\LoginFormAuthenticator::onAuthenticationSuccess() never returns null so it can be removed  
+         from the return type.                                                                                          
+         🪪  return.unusedType                                                                                          
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------- 
+  Line   Security\OAuthAuthenticator.php                                                                              
+ ------ ------------------------------------------------------------------------------------------------------------- 
+  134    Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().        
+         🪪  method.notFound                                                                                          
+  151    Call to function method_exists() with League\OAuth2\Client\Provider\ResourceOwnerInterface and 'getId' will  
+         always evaluate to true.                                                                                     
+         🪪  function.alreadyNarrowedType                                                                             
+ ------ ------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------- 
+  Line   Service\BudgetNotificationService.php                                                                  
+ ------ ------------------------------------------------------------------------------------------------------- 
+  69     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+  71     Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().  
+         🪪  method.notFound                                                                                    
+ ------ ------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Service\ContentModerationService.php                                                                           
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  40     Method App\Service\ContentModerationService::assess() should return array{flagged: bool, source: string,       
+         reason: string, categories: array<string>} but returns array{flagged: bool, reason: string, categories: array  
+         <string>}.                                                                                                     
+         🪪  return.type                                                                                                
+         💡  Array does not have offset 'source'.                                                                       
+  47     Method App\Service\ContentModerationService::assess() should return array{flagged: bool, source: string,       
+         reason: string, categories: array<string>} but returns array{flagged: bool, reason: string, categories: array  
+         <string>}.                                                                                                     
+         🪪  return.type                                                                                                
+         💡  Array does not have offset 'source'.                                                                       
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------ 
+  Line   Service\DocumentCategorizationService.php                                                 
+ ------ ------------------------------------------------------------------------------------------ 
+  34     Property App\Service\DocumentCategorizationService::$logger is never read, only written.  
+         🪪  property.onlyWritten                                                                  
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties         
+ ------ ------------------------------------------------------------------------------------------ 
+
+ ------ ----------------------------------------------------------------------------------- 
+  Line   Service\DocumentChatService.php                                                    
+ ------ ----------------------------------------------------------------------------------- 
+  12     Property App\Service\DocumentChatService::$logger is never read, only written.     
+         🪪  property.onlyWritten                                                           
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties  
+ ------ ----------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------- 
+  Line   Service\DocumentOCRService.php                                                     
+ ------ ----------------------------------------------------------------------------------- 
+  13     Property App\Service\DocumentOCRService::$uploadsDir is never read, only written.  
+         🪪  property.onlyWritten                                                           
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties  
+ ------ ----------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Service\DocumentSignService.php                                                                          
+ ------ --------------------------------------------------------------------------------------------------------- 
+  132    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\Signature>::findByDocument().       
+         🪪  method.notFound                                                                                      
+  137    Call to an undefined method Doctrine\ORM\EntityRepository<App\Entity\Signature>::findPendingBySigner().  
+         🪪  method.notFound                                                                                      
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Service\GeminiCardGeneratorService.php                                                                         
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  10     Property App\Service\GeminiCardGeneratorService::$geminiApiKey is never read, only written.                    
+         🪪  property.onlyWritten                                                                                       
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                              
+  183    Parameter #2 $options of function curl_setopt_array expects array{10002: non-empty-string, 19913: bool, 13:    
+         int, 78: int, 52: bool, 68: int, 64: bool, 81: 0|2, ...}, array{10002: string, 19913: true, 13: int, 78: int<  
+         min, 30>, 52: true, 68: 5, 64: false, 81: false, ...} given.                                                   
+         🪪  argument.type                                                                                              
+         💡  Offset 81 (0|2) does not accept type false.                                                                
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------ 
+  Line   Service\Invoice\InvoiceApiService.php           
+ ------ ------------------------------------------------ 
+  77     Expression on left side of ?? is not nullable.  
+         🪪  nullCoalesce.expr                           
+ ------ ------------------------------------------------ 
+
+ ------ -------------------------------------------------------------------------------------- 
+  Line   Service\MessageRewriteService.php                                                     
+ ------ -------------------------------------------------------------------------------------- 
+  11     Property App\Service\MessageRewriteService::$httpClient is never read, only written.  
+         🪪  property.onlyWritten                                                              
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties     
+  21     Method App\Service\MessageRewriteService::resolveApiKey() is unused.                  
+         🪪  method.unused                                                                     
+  43     Method App\Service\MessageRewriteService::resolveProvider() is unused.                
+         🪪  method.unused                                                                     
+  52     Method App\Service\MessageRewriteService::resolveApiUrl() is unused.                  
+         🪪  method.unused                                                                     
+  73     Method App\Service\MessageRewriteService::resolveModel() is unused.                   
+         🪪  method.unused                                                                     
+  133    Method App\Service\MessageRewriteService::looksRewritten() is unused.                 
+         🪪  method.unused                                                                     
+  149    Method App\Service\MessageRewriteService::looksLikeAssistantReply() is unused.        
+         🪪  method.unused                                                                     
+ ------ -------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------- 
+  Line   Service\Notification\InAppNotificationService.php                                                        
+ ------ --------------------------------------------------------------------------------------------------------- 
+  12     Property App\Service\Notification\InAppNotificationService::$entityManager is never read, only written.  
+         🪪  property.onlyWritten                                                                                 
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                        
+ ------ --------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------- 
+  Line   Service\PdfReleveService.php                                                                        
+ ------ ---------------------------------------------------------------------------------------------------- 
+  37     Instantiated class TCPDF not found.                                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  38     Call to method SetDefaultMonospacedFont() on an unknown class TCPDF.                                
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  38     Constant PDF_FONT_MONOSPACED not found.                                                             
+         🪪  constant.notFound                                                                               
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  39     Call to method SetMargins() on an unknown class TCPDF.                                              
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  40     Call to method SetAutoPageBreak() on an unknown class TCPDF.                                        
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  41     Call to method AddPage() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  44     Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  66     Call to method Output() on an unknown class TCPDF.                                                  
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  116    Parameter $pdf of method App\Service\PdfReleveService::addHeader() has invalid type TCPDF.          
+         🪪  class.notFound                                                                                  
+  119    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  120    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  121    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  124    Call to method SetDrawColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  125    Call to method GetY() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  125    Call to method GetY() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  125    Call to method Line() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  127    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  128    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  129    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  132    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  133    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  134    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  135    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  141    Parameter $pdf of method App\Service\PdfReleveService::addCompteInfo() has invalid type TCPDF.      
+         🪪  class.notFound                                                                                  
+  143    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  144    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  145    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  146    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  148    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  149    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  152    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  153    Call to method SetLineWidth() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  154    Call to method SetDrawColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  157    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  158    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  159    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  160    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  161    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  164    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  165    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  166    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  185    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  186    Call to method MultiCell() on an unknown class TCPDF.                                               
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  189    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  195    Parameter $pdf of method App\Service\PdfReleveService::addCreditsSection() has invalid type TCPDF.  
+         🪪  class.notFound                                                                                  
+  197    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  198    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  199    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  200    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  202    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  203    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  205    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  206    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  207    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  210    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  211    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  212    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  213    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  214    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  215    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  218    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  219    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  220    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  230    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  231    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  232    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  233    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  235    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  236    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  237    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  238    Call to method SetFillColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  239    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  241    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  244    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  250    Parameter $pdf of method App\Service\PdfReleveService::addQrCode() has invalid type TCPDF.          
+         🪪  class.notFound                                                                                  
+  256    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  257    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  258    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  259    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  261    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  262    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  263    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  264    Call to method Ln() on an unknown class TCPDF.                                                      
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  268    Call to method GetY() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  268    Call to method Image() on an unknown class TCPDF.                                                   
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  274    Parameter $pdf of method App\Service\PdfReleveService::addFooter() has invalid type TCPDF.          
+         🪪  class.notFound                                                                                  
+  276    Call to method SetY() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  277    Call to method SetFont() on an unknown class TCPDF.                                                 
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  278    Call to method SetTextColor() on an unknown class TCPDF.                                            
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  280    Call to method Cell() on an unknown class TCPDF.                                                    
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+  280    Call to method PageNo() on an unknown class TCPDF.                                                  
+         🪪  class.notFound                                                                                  
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols                                
+ ------ ---------------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------- 
+  Line   Service\Promotion\VoucherifyPromotionService.php                                             
+ ------ --------------------------------------------------------------------------------------------- 
+  51     Strict comparison using !== between non-empty-string and null will always evaluate to true.  
+         🪪  notIdentical.alwaysTrue                                                                  
+  71     Comparison operation "<=" between 1|2 and 2 is always true.                                  
+         🪪  smallerOrEqual.alwaysTrue                                                                
+  138    Unreachable statement - code above always terminates.                                        
+         🪪  deadCode.unreachable                                                                     
+ ------ --------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------- 
+  Line   Service\Recommendation\EnhancedHybridRecommendationService.php                                 
+ ------ ----------------------------------------------------------------------------------------------- 
+  21     Constant App\Service\Recommendation\EnhancedHybridRecommendationService::CACHE_TTL is unused.  
+         🪪  classConstant.unused                                                                       
+         💡  See: https://phpstan.org/developing-extensions/always-used-class-constants                 
+ ------ ----------------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------- 
+  Line   Service\Recommendation\HybridRecommendationService.php                                 
+ ------ --------------------------------------------------------------------------------------- 
+  25     Constant App\Service\Recommendation\HybridRecommendationService::CACHE_TTL is unused.  
+         🪪  classConstant.unused                                                               
+         💡  See: https://phpstan.org/developing-extensions/always-used-class-constants         
+ ------ --------------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Service\SmsService.php                                                                                         
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  31     Deprecated in PHP 8.1: Required parameter $logger follows optional parameter $messagingServiceSid.             
+         🪪  parameter.requiredAfterOptional                                                                            
+  107    Instanceof between App\Service\Sms\BrevoSmsService and App\Service\Sms\BrevoSmsService will always evaluate    
+         to true.                                                                                                       
+         🪪  instanceof.alwaysTrue                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+  118    Strict comparison using === between null and null will always evaluate to true.                                
+         🪪  identical.alwaysTrue                                                                                       
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------- 
+  Line   Service\Sms\SimpleSmsService.php                                                     
+ ------ ------------------------------------------------------------------------------------- 
+  11     Property App\Service\Sms\SimpleSmsService::$httpClient is never read, only written.  
+         🪪  property.onlyWritten                                                             
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties    
+ ------ ------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------- 
+  Line   Service\Sms\SmsApiService.php                                                      
+ ------ ----------------------------------------------------------------------------------- 
+  13     Property App\Service\Sms\SmsApiService::$apiKey is never read, only written.       
+         🪪  property.onlyWritten                                                           
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties  
+ ------ ----------------------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Service\Transfer\GeoLocateService.php                                                                          
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  51     Offset 'name' on array{name: 'IPAPI'|'IPLOCATE'|'IPWHOIS', url: non-falsy-string} on left side of ?? always    
+         exists and is not nullable.                                                                                    
+         🪪  nullCoalesce.offset                                                                                        
+  52     Offset 'url' on array{name: 'IPAPI'|'IPLOCATE'|'IPWHOIS', url: non-falsy-string} on left side of ?? always     
+         exists and is not nullable.                                                                                    
+         🪪  nullCoalesce.offset                                                                                        
+  54     Strict comparison using === between non-falsy-string and '' will always evaluate to false.                     
+         🪪  identical.alwaysFalse                                                                                      
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain  
+         : false in your phpstan.dist.neon.                                                                             
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  Line   Service\Transfer\N8nScheduledTransferDispatcher.php                                                        
+ ------ ----------------------------------------------------------------------------------------------------------- 
+  13     Property App\Service\Transfer\N8nScheduledTransferDispatcher::$entityManager is never read, only written.  
+         🪪  property.onlyWritten                                                                                   
+         💡  See: https://phpstan.org/developing-extensions/always-read-written-properties                          
+ ------ ----------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------- 
+  Line   Service\TwilioService.php                                             
+ ------ ---------------------------------------------------------------------- 
+  29     Instantiated class Twilio\Http\CurlClient not found.                  
+         🪪  class.notFound                                                    
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols  
+  31     Instantiated class Twilio\Rest\Client not found.                      
+         🪪  class.notFound                                                    
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols  
+  32     Access to property $messages on an unknown class Twilio\Rest\Client.  
+         🪪  class.notFound                                                    
+         💡  Learn more at https://phpstan.org/user-guide/discovering-symbols  
+ ------ ---------------------------------------------------------------------- 
+
+ ------ --------------------------------------------------------------------------------------- 
+  Line   WebSocket\ChatMessageNotifier.php                                                      
+ ------ --------------------------------------------------------------------------------------- 
+  28     Access to an undefined property Ratchet\ConnectionInterface::$httpRequest.             
+         🪪  property.notFound                                                                  
+         💡  Learn more: https://phpstan.org/blog/solving-phpstan-access-to-undefined-property  
+ ------ --------------------------------------------------------------------------------------- 
+
+ [ERROR] Found 265 errors                                                                                              
+

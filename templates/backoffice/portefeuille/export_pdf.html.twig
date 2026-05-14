@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Export Portefeuilles</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #1f2937; }
+        h1 { margin-bottom: 6px; }
+        .meta { margin-bottom: 12px; color: #6b7280; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #d1d5db; padding: 6px; }
+        th { background: #f3f4f6; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>FinTrack - Export Portefeuilles</h1>
+    <div class="meta">Date de génération: {{ generatedAt|date('d/m/Y H:i:s') }}</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Utilisateur</th>
+                <th>Email</th>
+                <th>Devise</th>
+                <th>Solde</th>
+                <th>Créé le</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for portefeuille in portefeuilles %}
+            <tr>
+                <td>{{ portefeuille.id }}</td>
+                <td>{{ portefeuille.nom }}</td>
+                <td>{{ portefeuille.user ? (portefeuille.user.fullName ?: '-') : '-' }}</td>
+                <td>{{ portefeuille.user ? portefeuille.user.email : '-' }}</td>
+                <td>{{ portefeuille.devisePrincipale }}</td>
+                <td>{{ portefeuille.soldeTotal|number_format(2, ',', ' ') }}</td>
+                <td>{{ portefeuille.createdAt ? portefeuille.createdAt|date('Y-m-d H:i') : '-' }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="7">Aucune donnée.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

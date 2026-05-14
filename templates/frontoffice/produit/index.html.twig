@@ -1,0 +1,518 @@
+{% extends 'frontoffice/base.html.twig' %}
+
+{% block title %}Mes Produits - FinTrack{% endblock %}
+
+{% block body %}
+<section class="py-5 bg-light min-vh-100">
+    <div class="container py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+            <div>
+                <h1 class="h2 fw-bold text-dark mb-1">Mes Produits & Actifs</h1>
+                <p class="text-muted mb-0">Gérez votre inventaire personnel et la valeur de vos biens.</p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ path('front_historique_index', {entity: 'produit'}) }}" class="btn btn-outline-dark btn-lg rounded-pill shadow-sm px-4">
+                    <i class="fas fa-clock-rotate-left me-2"></i> Historique
+                </a>
+                <button type="button" class="btn btn-success btn-lg rounded-pill shadow-sm px-4" onclick="validateVoucherifyPromotion()">
+                    <i class="fas fa-ticket-alt me-2"></i> Appliquer code promo Voucherify
+                </button>
+                <button type="button" class="btn btn-outline-success btn-lg rounded-pill shadow-sm px-4" onclick="testWhatsappPromotion()">
+                    <i class="fab fa-whatsapp me-2"></i> Tester WhatsApp promo
+                </button>
+                <a href="{{ path('produit_new') }}" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4">
+                    <i class="fas fa-plus me-2"></i> Ajouter un produit
+                </a>
+            </div>
+        </div>
+
+        <div id="voucherifyPromoResult" class="alert d-none mb-4" role="alert"></div>
+        <div id="whatsappPromoResult" class="alert d-none mb-4" role="alert"></div>
+
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
+                                <i class="fas fa-boxes text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="small text-muted">Total Produits</div>
+                                <div class="h4 fw-bold mb-0">{{ stats.total }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-3 me-3">
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                            <div>
+                                <div class="small text-muted">Disponibles</div>
+                                <div class="h4 fw-bold mb-0">{{ stats.disponibles }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-info bg-opacity-10 p-3 rounded-3 me-3">
+                                <i class="fas fa-dollar-sign text-info"></i>
+                            </div>
+                            <div>
+                                <div class="small text-muted">Valeur Totale</div>
+                                <div class="h4 fw-bold mb-0">{{ stats.valeur_totale|number_format(2, ',', ' ') }} TND</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-warning bg-opacity-10 p-3 rounded-3 me-3">
+                                <i class="fas fa-chart-line text-warning"></i>
+                            </div>
+                            <div>
+                                <div class="small text-muted">Prix Moyen</div>
+                                <div class="h4 fw-bold mb-0">{{ stats.prix_moyen|number_format(2, ',', ' ') }} TND</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="card border-0 shadow-sm rounded-3 mb-5">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold mb-4">
+                    <i class="fas fa-filter me-2"></i>Filtres et Recherche
+                </h5>
+                <form method="GET" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="search" class="form-label fw-semibold">Recherche</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search" name="search" 
+                                   value="{{ filters.search }}" placeholder="Nom, code, type...">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="statut" class="form-label fw-semibold">Statut</label>
+                        <select class="form-select" id="statut" name="statut">
+                            <option value="">Tous</option>
+                            <option value="disponible" {{ filters.statut == 'disponible' ? 'selected' : '' }}>Disponible</option>
+                            <option value="indisponible" {{ filters.statut == 'indisponible' ? 'selected' : '' }}>Indisponible</option>
+                            <option value="archive" {{ filters.statut == 'archive' ? 'selected' : '' }}>Archivé</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="typeProduit" class="form-label fw-semibold">Type</label>
+                        <select class="form-select" id="typeProduit" name="typeProduit">
+                            <option value="">Tous</option>
+                            {% for type in typesProduits %}
+                                <option value="{{ type.type_produit }}" {{ filters.typeProduit == type.type_produit ? 'selected' : '' }}>
+                                    {{ type.type_produit|capitalize }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sortBy" class="form-label fw-semibold">Tri</label>
+                        <div class="input-group">
+                            <select class="form-select" id="sortBy" name="sortBy">
+                                <option value="id_produit" {{ filters.sortBy == 'id_produit' ? 'selected' : '' }}>ID</option>
+                                <option value="nom_produit" {{ filters.sortBy == 'nom_produit' ? 'selected' : '' }}>Nom</option>
+                                <option value="montant" {{ filters.sortBy == 'montant' ? 'selected' : '' }}>Montant</option>
+                                <option value="code_unique" {{ filters.sortBy == 'code_unique' ? 'selected' : '' }}>Code</option>
+                                <option value="type_produit" {{ filters.sortBy == 'type_produit' ? 'selected' : '' }}>Type</option>
+                                <option value="statut" {{ filters.sortBy == 'statut' ? 'selected' : '' }}>Statut</option>
+                                <option value="date_creation" {{ filters.sortBy == 'date_creation' ? 'selected' : '' }}>Date</option>
+                            </select>
+                            <select class="form-select" name="sortOrder" style="max-width: 100px;">
+                                <option value="ASC" {{ filters.sortOrder == 'ASC' ? 'selected' : '' }}>
+                                    <i class="fas fa-sort-up"></i> Asc
+                                </option>
+                                <option value="DESC" {{ filters.sortOrder == 'DESC' ? 'selected' : '' }}>
+                                    <i class="fas fa-sort-down"></i> Desc
+                                </option>
+                            </select>
+                            <button class="btn btn-primary" type="submit">Appliquer</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <a href="{{ path('produit_index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-redo me-1"></i>Réinitialiser
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for produit in produits %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 transition-hover">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-3">
+                                    <i class="fas fa-box text-primary fa-lg"></i>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                                        <li><a class="dropdown-item py-2" href="{{ path('produit_show', {id: produit.id}) }}" title="Voir"><i class="fas fa-fw fa-eye text-primary"></i><span class="visually-hidden">Voir</span></a></li>
+                                        <li><a class="dropdown-item py-2" href="{{ path('produit_edit', {id: produit.id}) }}" title="Modifier"><i class="fas fa-fw fa-pen text-warning"></i><span class="visually-hidden">Modifier</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h5 class="card-title fw-bold mb-1">{{ produit.nomProduit }}</h5>
+                            <span class="badge bg-light text-dark border px-2 rounded-pill small mb-4">{{ produit.typeProduit }}</span>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <div class="small text-muted text-uppercase fw-bold">Valeur</div>
+                                    <div class="h4 fw-bold text-primary mb-0">{{ produit.montant|number_format(2, ',', ' ') }} TND</div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="small text-muted text-uppercase fw-bold">ID Code</div>
+                                    <code class="fw-bold text-dark">{{ produit.codeUnique }}</code>
+                                </div>
+                            </div>
+
+                            <div class="py-3 border-top d-flex justify-content-between align-items-center">
+                                <div class="small text-muted">
+                                    <i class="fas fa-calendar-alt me-1"></i> Ajouté le {{ produit.dateCreation|date('d/m/Y') }}
+                                </div>
+                                {% set badge_class = produit.statut == 'disponible' ? 'success' : (produit.statut == 'vendu' ? 'info' : (produit.statut == 'en_reparation' ? 'warning' : 'secondary')) %}
+                                <span class="badge rounded-pill bg-{{ badge_class }} px-3">
+                                    {{ produit.statut|capitalize|replace({'_': ' '}) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ path('produit_show', {id: produit.id}) }}" class="btn btn-sm btn-outline-primary btn-action-icon" title="Voir la fiche"><i class="fas fa-eye" aria-hidden="true"></i><span class="visually-hidden">Voir la fiche</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center py-5">
+                    <div class="bg-white p-5 rounded-4 shadow-sm d-inline-block">
+                        <i class="fas fa-boxes fa-4x text-light mb-4 d-block"></i>
+                        <h3 class="fw-bold">Votre inventaire est vide</h3>
+                        <p class="text-muted mb-4">Commencez par ajouter vos biens (électronique, mobilier, véhicules...) pour suivre leur valeur.</p>
+                        <a href="{{ path('produit_new') }}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold">
+                            Ajouter mon premier produit
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .transition-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #6c757d !important;
+        background-color: #f8f9fa !important;
+    }
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.15) !important;
+        border-color: #495057 !important;
+        background-color: #e9ecef !important;
+    }
+    .transition-hover .text-muted {
+        color: #495057 !important;
+        font-weight: 500;
+    }
+    .transition-hover .fw-bold {
+        color: #212529 !important;
+    }
+    .transition-hover .border-top {
+        border-color: #6c757d !important;
+    }
+    .transition-hover .bg-light {
+        background-color: #e9ecef !important;
+        color: #212529 !important;
+        border-color: #6c757d !important;
+    }
+    .text-light {
+        color: #6c757d !important;
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+const availableProducts = [
+{% for produit in produits %}
+    {% if produit.statut == 'disponible' %}
+    {
+        id: {{ produit.id }},
+        name: {{ produit.nomProduit|json_encode|raw }},
+        price: {{ produit.montant|default(0)|number_format(2, '.', '') }}
+    },
+    {% endif %}
+{% endfor %}
+];
+
+function setVoucherifyPromoMessage(type, message) {
+    const box = document.getElementById('voucherifyPromoResult');
+    if (!box) {
+        return;
+    }
+
+    box.className = 'alert mb-4';
+    box.classList.add(type === 'success' ? 'alert-success' : (type === 'warning' ? 'alert-warning' : 'alert-danger'));
+    box.textContent = message;
+    box.classList.remove('d-none');
+}
+
+function setWhatsappPromoMessage(type, message) {
+    const box = document.getElementById('whatsappPromoResult');
+    if (!box) {
+        return;
+    }
+
+    box.className = 'alert mb-4';
+    box.classList.add(type === 'success' ? 'alert-success' : (type === 'warning' ? 'alert-warning' : 'alert-danger'));
+    box.textContent = message;
+    box.classList.remove('d-none');
+}
+
+function extractVoucherifyReason(validation) {
+    const raw = validation?.raw || {};
+    const candidates = [
+        validation?.reason,
+        raw?.reason,
+        raw?.message,
+        raw?.error?.message,
+        raw?.error,
+    ];
+
+    for (const value of candidates) {
+        if (typeof value === 'string' && value.trim() !== '') {
+            return value.trim();
+        }
+    }
+
+    return '';
+}
+
+function askTargetProductIds() {
+    if (!availableProducts.length) {
+        setVoucherifyPromoMessage('warning', 'Aucun produit disponible a modifier.');
+        return null;
+    }
+
+    const productsText = availableProducts
+        .map((p) => `${p.id} - ${p.name} (${Number(p.price || 0).toFixed(2)} TND)`)
+        .join('\n');
+
+    const raw = prompt(
+        `Quel produit veux-tu changer ?\n\n${productsText}\n\nSaisis un ID ou plusieurs IDs separes par virgule:`,
+        String(availableProducts[0].id)
+    );
+
+    if (raw === null) {
+        return null;
+    }
+
+    const ids = raw
+        .split(',')
+        .map((value) => Number.parseInt(value.trim(), 10))
+        .filter((value) => Number.isInteger(value) && value > 0);
+
+    const uniqueIds = [...new Set(ids)];
+    if (!uniqueIds.length) {
+        setVoucherifyPromoMessage('error', 'Tu dois choisir au moins un ID produit valide.');
+        return null;
+    }
+
+    return uniqueIds;
+}
+
+function getVoucherifyPromoPayload() {
+    const redeemableId = prompt('Code promo ou ID Voucherify', 'BLCKFRDY');
+    if (redeemableId === null) {
+        return null;
+    }
+
+    const productIds = askTargetProductIds();
+    if (!productIds) {
+        return null;
+    }
+
+    const selectedProducts = availableProducts.filter((p) => productIds.includes(Number(p.id)));
+    const suggestedAmount = Math.round(
+        selectedProducts.reduce((sum, p) => sum + Number(p.price || 0), 0) * 100
+    );
+
+    const amountRaw = prompt('Montant de la commande en centimes', suggestedAmount > 0 ? String(suggestedAmount) : '5500');
+    if (amountRaw === null) {
+        return null;
+    }
+
+    const currencyRaw = prompt('Devise', 'TND');
+    if (currencyRaw === null) {
+        return null;
+    }
+
+    return {
+        redeemable_id: redeemableId.trim(),
+        product_ids: productIds,
+        amount: Number(amountRaw),
+        currency: currencyRaw.trim() || 'TND',
+        apply_to_products: true
+    };
+}
+
+function normalizeWhatsAppPhoneNumber(raw) {
+    const digits = String(raw || '').replace(/\D+/g, '');
+    if (digits === '') {
+        return '';
+    }
+
+    if (digits.startsWith('00')) {
+        return digits.slice(2);
+    }
+
+    return digits;
+}
+
+async function testWhatsappPromotion() {
+    const payload = getVoucherifyPromoPayload();
+    if (!payload) {
+        return;
+    }
+
+    payload.apply_to_products = false;
+
+    const shouldValidate = confirm('Tester la promotion WhatsApp avec cette validation Voucherify ?');
+    if (!shouldValidate) {
+        return;
+    }
+
+    const rawPhone = prompt('Numéro WhatsApp du destinataire avec indicatif pays, ex: 216XXXXXXXX', '');
+    if (rawPhone === null) {
+        return;
+    }
+
+    const phone = normalizeWhatsAppPhoneNumber(rawPhone);
+    if (!phone) {
+        setWhatsappPromoMessage('error', 'Le numéro WhatsApp est invalide.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/promotions/voucherify/validate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({
+                ...payload,
+                whatsapp_number: phone
+            })
+        });
+
+        const data = await response.json();
+        if (data.status === 'warning') {
+            setWhatsappPromoMessage('warning', data.message || 'Promotion non valide.');
+            return;
+        }
+
+        if (data.status !== 'success') {
+            setWhatsappPromoMessage('error', data.message || 'Erreur lors du test WhatsApp.');
+            return;
+        }
+
+        const smsSent = data.data?.sms_sent || false;
+        if (smsSent) {
+            setWhatsappPromoMessage('success', 'Message SMS envoyé avec succès.');
+        } else {
+            setWhatsappPromoMessage('error', data.message || 'Erreur lors de l\'envoi du SMS.');
+        }
+    } catch (error) {
+        setWhatsappPromoMessage('error', 'Erreur reseau lors du test SMS.');
+    }
+}
+
+async function validateVoucherifyPromotion() {
+    const payload = getVoucherifyPromoPayload();
+    if (!payload) {
+        return;
+    }
+
+    if (!payload.redeemable_id) {
+        setVoucherifyPromoMessage('error', 'Le code promo est obligatoire.');
+        return;
+    }
+
+    const shouldApply = confirm('Confirmer la validation Voucherify ?');
+    if (!shouldApply) {
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/promotions/voucherify/validate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (data.status !== 'success') {
+            setVoucherifyPromoMessage('error', data.message || 'Erreur lors de la validation.');
+            return;
+        }
+
+        const validation = data.data?.validation || data.data || {};
+        const discount = validation.discount || {};
+        const reason = extractVoucherifyReason(validation);
+        const discountText = discount.percent_off ? `${discount.percent_off}%` : (discount.amount_off ? `${discount.amount_off}` : 'aucun');
+        const updatedCount = Number(data.data?.updated_count || 0);
+        const selectedCount = Number(data.data?.selected_count || payload.product_ids.length || 0);
+
+        if (updatedCount === 0) {
+            const reasonText = reason !== ''
+                ? ` Raison Voucherify: ${reason}.`
+                : ' Raison Voucherify: aucune reduction exploitable retournee par l API.';
+            setVoucherifyPromoMessage('warning', `Validation faite, mais aucun changement. Produits choisis: ${selectedCount}. Réduction: ${discountText}.${reasonText}`);
+            return;
+        }
+
+        const reasonText = reason !== '' ? ` Raison Voucherify: ${reason}.` : '';
+        setVoucherifyPromoMessage('success', `Voucherify valide: réduction ${discountText}. ${updatedCount}/${selectedCount} produit(s) mis à jour.${reasonText}`);
+        setTimeout(() => window.location.reload(), 900);
+    } catch (error) {
+        setVoucherifyPromoMessage('error', 'Erreur reseau lors de la validation.');
+    }
+}
+</script>
+{% endblock %}

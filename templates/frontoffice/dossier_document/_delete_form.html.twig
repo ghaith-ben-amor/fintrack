@@ -1,0 +1,9 @@
+{% set is_dropdown = is_dropdown|default(false) %}
+<form method="post" action="{{ action }}" onsubmit="return confirm('Supprimer ce dossier ?');" class="{% if not is_dropdown %}d-inline-block{% endif %} mb-0">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ dossier.id) }}">
+    {% if is_dropdown %}
+        <button class="dropdown-item py-2 text-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="visually-hidden"> Supprimer</span></button>
+    {% else %}
+        <button type="submit" class="btn btn-outline-danger btn-sm btn-action-icon" title="Supprimer"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="visually-hidden">Supprimer</span></button>
+    {% endif %}
+</form>

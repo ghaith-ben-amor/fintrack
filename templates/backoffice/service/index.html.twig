@@ -1,0 +1,264 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Gestion des Services - Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-concierge-bell me-2 text-primary"></i>Gestion des Services</h1>
+        <a href="{{ path('admin_service_new') }}" class="btn btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50 me-1"></i> Nouveau Service
+        </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Services</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Services Actifs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.actifs }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Revenu Total</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.revenu_total|number_format(2, ',', ' ') }} TND</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tarif Moyen</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.tarif_moyen|number_format(2, ',', ' ') }} TND</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-filter me-2"></i>Filtres et Recherche
+            </h6>
+        </div>
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-3">
+                    <label for="search" class="form-label">Recherche</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search" name="search" 
+                               value="{{ filters.search }}" placeholder="Nom, type, fréquence...">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="statut" class="form-label">Statut</label>
+                    <select class="form-select" id="statut" name="statut">
+                        <option value="">Tous</option>
+                        <option value="actif" {{ filters.statut == 'actif' ? 'selected' : '' }}>Actif</option>
+                        <option value="suspendu" {{ filters.statut == 'suspendu' ? 'selected' : '' }}>Suspendu</option>
+                        <option value="expire" {{ filters.statut == 'expire' ? 'selected' : '' }}>Expiré</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="typeService" class="form-label">Type</label>
+                    <select class="form-select" id="typeService" name="typeService">
+                        <option value="">Tous</option>
+                        {% for type in typesServices %}
+                            <option value="{{ type.type_service }}" {{ filters.typeService == type.type_service ? 'selected' : '' }}>
+                                {{ type.type_service|capitalize }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="frequence" class="form-label">Fréquence</label>
+                    <select class="form-select" id="frequence" name="frequence">
+                        <option value="">Toutes</option>
+                        {% for freq in frequences %}
+                            <option value="{{ freq.frequence }}" {{ filters.frequence == freq.frequence ? 'selected' : '' }}>
+                                {{ freq.frequence|capitalize }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="sortBy" class="form-label">Tri</label>
+                    <div class="input-group">
+                        <select class="form-select" id="sortBy" name="sortBy">
+                            <option value="id_service" {{ filters.sortBy == 'id_service' ? 'selected' : '' }}>ID</option>
+                            <option value="nom_service" {{ filters.sortBy == 'nom_service' ? 'selected' : '' }}>Nom</option>
+                            <option value="tarif" {{ filters.sortBy == 'tarif' ? 'selected' : '' }}>Tarif</option>
+                            <option value="type_service" {{ filters.sortBy == 'type_service' ? 'selected' : '' }}>Type</option>
+                            <option value="frequence" {{ filters.sortBy == 'frequence' ? 'selected' : '' }}>Fréquence</option>
+                            <option value="statut" {{ filters.sortBy == 'statut' ? 'selected' : '' }}>Statut</option>
+                            <option value="date_debut" {{ filters.sortBy == 'date_debut' ? 'selected' : '' }}>Date début</option>
+                        </select>
+                        <select class="form-select" name="sortOrder" style="max-width: 100px;">
+                            <option value="ASC" {{ filters.sortOrder == 'ASC' ? 'selected' : '' }}>
+                                <i class="fas fa-sort-up"></i> Asc
+                            </option>
+                            <option value="DESC" {{ filters.sortOrder == 'DESC' ? 'selected' : '' }}>
+                                <i class="fas fa-sort-down"></i> Desc
+                            </option>
+                        </select>
+                        <button class="btn btn-primary" type="submit">Appliquer</button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <a href="{{ path('admin_service_index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-redo me-1"></i>Réinitialiser
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Chiffre d'Affaires Est.</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.revenu_total|number_format(2, ',', ' ') }} TND</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-white">
+            <h6 class="m-0 font-weight-bold text-primary">📋 Liste des Services</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom du Service</th>
+                            <th>Utilisateur</th>
+                            <th>Tarif</th>
+                            <th>Type</th>
+                            <th>Fréquence</th>
+                            <th>Statut</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                            <tr>
+                                <td>#{{ service.id }}</td>
+                                <td><span class="fw-bold text-dark">{{ service.nomService }}</span></td>
+                                <td>
+                                    <div class="small">
+                                        <i class="fas fa-user me-1 text-muted"></i> {{ service.user_prenom }} {{ service.user_nom }}<br>
+                                        <i class="fas fa-envelope me-1 text-muted"></i> {{ service.user_email }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-soft-primary text-primary border border-primary px-3">
+                                        {{ service.tarif|number_format(2, ',', ' ') }} TND
+                                    </span>
+                                </td>
+                                <td><span class="text-muted small">{{ service.typeService }}</span></td>
+                                <td><span class="badge bg-light text-dark">{{ service.frequence|capitalize }}</span></td>
+                                <td>
+                                    {% set badge_class = service.statut == 'actif' ? 'success' : (service.statut == 'suspendu' ? 'warning' : (service.statut == 'expire' ? 'danger' : 'secondary')) %}
+                                    <span class="badge rounded-pill bg-{{ badge_class }}">
+                                        {{ service.statut|capitalize|replace({'_': ' '}) }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group shadow-sm" role="group">
+                                        <a href="{{ path('admin_service_show', {id: service.id}) }}" class="btn btn-sm btn-outline-primary" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ path('admin_service_edit', {id: service.id}) }}" class="btn btn-sm btn-outline-warning" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('admin_service_delete', {id: service.id}) }}" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce service ?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8" class="text-center py-5">
+                                    <div class="text-muted mb-3">
+                                        <i class="fas fa-concierge-bell fa-3x mb-3 text-light"></i><br>
+                                        Aucun service trouvé dans la base de données.
+                                    </div>
+                                    <a href="{{ path('admin_service_new') }}" class="btn btn-primary btn-sm rounded-pill px-4">
+                                        Créer le premier service
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-primary { background-color: rgba(78, 115, 223, 0.1); }
+    .border-left-primary { border-left: .25rem solid #4e73df !important; }
+    .border-left-success { border-left: .25rem solid #1cc88a !important; }
+    .border-left-info { border-left: .25rem solid #36b9cc !important; }
+</style>
+{% endblock %}

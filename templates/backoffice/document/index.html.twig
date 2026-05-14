@@ -1,0 +1,76 @@
+﻿{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Administration des documents{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h1 class="h3 mb-1">Documents (Admin)</h1>
+            <p class="text-muted mb-0">Supervision globale des documents, statuts et utilisateurs.</p>
+        </div>
+        <a href="{{ path('admin_document_new') }}" class="btn btn-primary">Nouveau document</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">Total</small><div class="h5 mb-0">{{ stats.total|default(0) }}</div></div></div></div>
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">Valides</small><div class="h5 mb-0">{{ stats.valide|default(0) }}</div></div></div></div>
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">Expirés</small><div class="h5 mb-0">{{ stats.expire|default(0) }}</div></div></div></div>
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">À renouveler</small><div class="h5 mb-0">{{ stats.a_renouveler|default(0) }}</div></div></div></div>
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">Archivés</small><div class="h5 mb-0">{{ stats.archive|default(0) }}</div></div></div></div>
+        <div class="col-6 col-md-3 col-xl-2"><div class="card"><div class="card-body"><small class="text-muted">Ce mois</small><div class="h5 mb-0">{{ stats.this_month|default(0) }}</div></div></div></div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" action="{{ path('admin_document_index') }}" class="row g-2 align-items-end">
+                <div class="col-md-10">
+                    <label class="form-label">Recherche globale</label>
+                    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Titre, type, utilisateur...">
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-outline-primary">Rechercher</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Utilisateur</th>
+                        <th>Type</th>
+                        <th>Statut</th>
+                        <th>Créé le</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ document.titre }}</td>
+                        <td>{{ document.utilisateur ? document.utilisateur.nom ~ ' ' ~ document.utilisateur.prenom : '-' }}</td>
+                        <td>{{ document.typeDocument ?: '-' }}</td>
+                        <td><span class="badge text-bg-light border">{{ document.statut ?: 'N/A' }}</span></td>
+                        <td>{{ document.createdAt ? document.createdAt|date('d/m/Y') : '-' }}</td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ path('admin_document_show', {id: document.id}) }}" class="btn btn-outline-secondary">Voir</a>
+                                <a href="{{ path('admin_document_edit', {id: document.id}) }}" class="btn btn-outline-primary">Modifier</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">Aucun document trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

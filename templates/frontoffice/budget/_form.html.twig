@@ -1,0 +1,414 @@
+<form method="POST" novalidate class="budget-form" data-validate-url="{{ path('budget_validate') }}">
+    {% set budgetData = budget|default({}) %}
+    {% set formErrors = formErrors|default({}) %}
+    <input type="hidden" name="id_budget" value="{{ budgetData.id_budget|default('') }}">
+    <div class="row g-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="nom_budget" class="form-label fw-bold text-muted small text-uppercase">Nom du Budget</label>
+                <input type="text" id="nom_budget" name="nom_budget" class="form-control form-control-lg border-0 bg-light shadow-none" value="{{ budgetData.nom_budget|default('') }}" placeholder="Ex: Vacances 2026, Loyer, Courses..." pattern="[A-Za-zÀ-ÿ0-9\s\-']+" title="Le nom du budget peut contenir lettres, chiffres, espaces, tirets ou apostrophes et doit inclure au moins une lettre." required>
+                <div class="form-text">Donnez un nom clair à votre budget.</div>
+                {% for error in formErrors.nom_budget|default([]) %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                {% endfor %}
+                <div class="text-danger small mt-1" data-error-for="nom_budget"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="montant_total" class="form-label fw-bold text-muted small text-uppercase">Montant Limite (TND)</label>
+                <div class="input-group">
+                    <span class="input-group-text border-0 bg-light"><i class="fas fa-coins text-primary"></i></span>
+                    <input type="number" id="montant_total" name="montant_total" class="form-control form-control-lg border-0 bg-light shadow-none" step="0.01" value="{{ budgetData.montant_total|default('') }}" placeholder="0.00" required>
+                </div>
+                <div class="form-text">Le montant maximum à ne pas dépasser.</div>
+                {% for error in formErrors.montant_total|default([]) %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                {% endfor %}
+                <div class="text-danger small mt-1" data-error-for="montant_total"></div>
+
+                <!-- Reallocation Section -->
+                <div id="reallocation-section" class="mt-3 p-3 border rounded-3 bg-white" style="display: none;">
+                    <h6 class="fw-bold text-warning small text-uppercase mb-2"><i class="fas fa-exchange-alt me-1"></i> Réallouer des fonds</h6>
+                    <p class="small text-muted mb-3">Votre capacité est dépassée. Vous pouvez récupérer des fonds depuis vos autres budgets :</p>
+                    <div id="available-budgets-list" class="small">
+                        <!-- Dynamic list -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="periode" class="form-label fw-bold text-muted small text-uppercase">Période</label>
+                <select id="periode" name="periode" class="form-select form-select-lg border-0 bg-light shadow-none" required>
+                    <option value="mensuel" {{ budgetData.periode|default('') == 'mensuel' ? 'selected' : '' }}>Mensuel</option>
+                    <option value="annuel" {{ budgetData.periode|default('') == 'annuel' ? 'selected' : '' }}>Annuel</option>
+                    <option value="ponctuel" {{ budgetData.periode|default('') == 'ponctuel' ? 'selected' : '' }}>Ponctuel</option>
+                </select>
+                <div class="form-text">Fréquence de ce budget.</div>
+                {% for error in formErrors.periode|default([]) %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                {% endfor %}
+                <div class="text-danger small mt-1" data-error-for="periode"></div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="statut" class="form-label fw-bold text-muted small text-uppercase">Statut Initial</label>
+                <div class="d-flex gap-3 mt-2">
+                    <div class="form-check custom-option">
+                        <input class="form-check-input d-none" type="radio" name="statut" id="statut_actif" value="actif" {{ budgetData.statut|default('actif') == 'actif' ? 'checked' : '' }}>
+                        <label class="form-check-label px-4 py-2 rounded-pill border pointer-event" for="statut_actif">
+                            <i class="fas fa-check-circle me-1"></i> Actif
+                        </label>
+                    </div>
+                    <div class="form-check custom-option">
+                        <input class="form-check-input d-none" type="radio" name="statut" id="statut_attente" value="en_attente" {{ budgetData.statut|default('actif') == 'en_attente' ? 'checked' : '' }}>
+                        <label class="form-check-label px-4 py-2 rounded-pill border pointer-event" for="statut_attente">
+                            <i class="fas fa-clock me-1"></i> En Attente
+                        </label>
+                    </div>
+                </div>
+                {% for error in formErrors.statut|default([]) %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                {% endfor %}
+                <div class="text-danger small mt-1" data-error-for="statut"></div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="text-danger small mt-1" data-error-for="general"></div>
+        </div>
+    </div>
+
+    <div class="mt-5 pt-4 border-top d-flex gap-3">
+        <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+            <i class="fas fa-save me-2"></i>{{ button_label|default('Créer le budget') }}
+        </button>
+        <a href="{{ path('budget_index') }}" class="btn btn-light btn-lg px-4 rounded-pill">
+            Annuler
+        </a>
+    </div>
+</form>
+
+<style>
+    .custom-option input:checked + label {
+        background-color: var(--primary-blue);
+        color: white;
+        border-color: var(--primary-blue) !important;
+    }
+    .custom-option label {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-color: #dee2e6 !important;
+        color: #6c757d;
+    }
+    .custom-option label:hover {
+        background-color: #f8fafc;
+    }
+    .custom-range-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        background: #dee2e6;
+        border-radius: 5px;
+        outline: none;
+        transition: background 450ms ease-in;
+    }
+    .custom-range-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        background: white;
+        border: 3px solid var(--primary-blue);
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease;
+    }
+    .custom-range-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+    }
+    .letter-spacing-1 { letter-spacing: 0.5px; }
+    .text-xs { font-size: 0.75rem; }
+    .budget-realloc-item { transition: transform 0.3s ease; }
+    .budget-realloc-item:hover { transform: translateY(-3px); }
+</style>
+
+<script>
+    (function () {
+        var form = document.querySelector('.budget-form');
+        if (!form) {
+            return;
+        }
+
+        var validateUrl = form.getAttribute('data-validate-url');
+        var pendingTimer = null;
+
+        var setFieldState = function (name, messages) {
+            var input = form.querySelector('[name="' + name + '"]');
+            var errorBox = form.querySelector('[data-error-for="' + name + '"]');
+            if (!input || !errorBox) {
+                return;
+            }
+
+            var hasError = messages && messages.length;
+            input.classList.toggle('is-invalid', hasError);
+            input.classList.toggle('is-valid', !hasError);
+            errorBox.innerHTML = hasError ? messages.map(function (message) {
+                return '<div>' + message + '</div>';
+            }).join('') : '';
+        };
+
+        var clearAllStates = function () {
+            ['nom_budget', 'montant_total', 'periode', 'statut'].forEach(function (name) {
+                setFieldState(name, []);
+            });
+
+            var generalBox = form.querySelector('[data-error-for="general"]');
+            if (generalBox) {
+                generalBox.innerHTML = '';
+            }
+        };
+
+        var runValidation = function () {
+            if (typeof window.fetch !== 'function') {
+                return Promise.resolve({ valid: true });
+            }
+
+            if (!validateUrl) {
+                return Promise.resolve({ valid: true });
+            }
+
+            var formData = new FormData(form);
+            var submitButton = form.querySelector('button[type="submit"]');
+
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+
+            return fetch(validateUrl, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            }).then(function (response) {
+                return response.json().then(function (payload) {
+                    return { ok: response.ok, payload: payload };
+                });
+            }).then(function (result) {
+                clearAllStates();
+
+                if (result.payload && result.payload.errors) {
+                    Object.keys(result.payload.errors).forEach(function (field) {
+                        setFieldState(field, result.payload.errors[field]);
+                    });
+                }
+
+                handleReallocationUI(result.payload);
+
+                return {
+                    valid: !!(result.payload && result.payload.valid),
+                    payload: result.payload || {}
+                };
+            }).catch(function () {
+                return { valid: true };
+            }).finally(function () {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                }
+            });
+        };
+
+        var handleReallocationUI = function (payload) {
+            var reallocSection = document.getElementById('reallocation-section');
+            var listContainer = document.getElementById('available-budgets-list');
+            
+            if (!reallocSection || !listContainer) return;
+
+            // SAUVEGARDE des valeurs actuelles avant le rafraîchissement
+            var savedValues = {};
+            listContainer.querySelectorAll('.custom-range-slider').forEach(function(s) {
+                savedValues[s.id.replace('range-', '')] = s.value;
+            });
+ 
+            if (payload && payload.overflow && payload.available_budgets && payload.available_budgets.length > 0) {
+                reallocSection.style.display = 'block';
+                var html = '<div class="mt-3">';
+                
+                payload.available_budgets.forEach(function (budget) {
+                    var available = parseFloat(budget.montant_total) - parseFloat(budget.total_depense);
+                    if (available > 0) {
+                        var savedVal = savedValues[budget.id_budget] || 0;
+                        html += '<div class="budget-realloc-item mb-4 p-3 rounded-4 bg-light border-0 shadow-sm transition-all animate__animated animate__fadeInUp">';
+                        html += '  <div class="d-flex justify-content-between align-items-center mb-2">';
+                        html += '    <div class="fw-bold text-dark-emphasis small text-uppercase letter-spacing-1">' + budget.nom_budget + '</div>';
+                        html += '    <div class="badge bg-white text-primary border shadow-sm rounded-pill px-3 py-2"><span id="val-' + budget.id_budget + '">' + parseFloat(savedVal).toFixed(2) + '</span> TND / ' + available.toFixed(2) + '</div>';
+                        html += '  </div>';
+                        
+                        html += '  <div class="slider-container px-1 mt-3">';
+                        html += '    <input type="range" class="form-range custom-range-slider" id="range-' + budget.id_budget + '" min="0" max="' + available + '" step="0.5" value="' + savedVal + '">';
+                        html += '  </div>';
+                        
+                        html += '  <div class="d-flex justify-content-end mt-3 gap-2">';
+                        html += '    <button type="button" class="btn btn-sm btn-primary rounded-pill px-4 py-2 shadow-sm fw-bold text-xs btn-confirm-range" id="confirm-' + budget.id_budget + '" ' + (parseFloat(savedVal) <= 0 ? 'disabled' : '') + '>Confirmer le transfert</button>';
+                        html += '  </div>';
+                        html += '</div>';
+                    }
+                });
+                
+                html += '</div>';
+                listContainer.innerHTML = html;
+ 
+                // Slider and Button events
+                payload.available_budgets.forEach(function (budget) {
+                    var range = document.getElementById('range-' + budget.id_budget);
+                    var valDisplay = document.getElementById('val-' + budget.id_budget);
+                    var confirmBtn = document.getElementById('confirm-' + budget.id_budget);
+                    
+                    if (!range) return;
+
+                    // Initial background color for saved value
+                    var initialPct = (range.value / range.max) * 100;
+                    range.style.background = 'linear-gradient(to right, var(--primary-blue) 0%, var(--primary-blue) ' + initialPct + '%, #dee2e6 ' + initialPct + '%, #dee2e6 100%)';
+
+                    range.addEventListener('input', function () {
+                        var val = parseFloat(this.value).toFixed(2);
+                        valDisplay.innerText = val;
+                        confirmBtn.disabled = (parseFloat(val) <= 0);
+                        
+                        // Change color based on percentage
+                        var pct = (this.value / this.max) * 100;
+                        this.style.background = 'linear-gradient(to right, var(--primary-blue) 0%, var(--primary-blue) ' + pct + '%, #dee2e6 ' + pct + '%, #dee2e6 100%)';
+                    });
+
+                    confirmBtn.addEventListener('click', function() {
+                        var amount = parseFloat(range.value);
+                        if (amount > 0) {
+                            performReallocation(budget.id_budget, amount);
+                        }
+                    });
+                });
+            } else {
+                reallocSection.style.display = 'none';
+            }
+        };
+
+        var performReallocation = function (fromId, amount) {
+            if (typeof Swal === 'undefined') {
+                alert("Erreur: La bibliothèque d'alerte n'est pas chargée.");
+                return;
+            }
+
+            var reallocateUrl = "{{ url('budget_reallocate') }}";
+            var formData = new FormData(form);
+            formData.append('from_id', fromId);
+            formData.append('amount', amount);
+
+            Swal.fire({
+                title: 'Initialisation du transfert...',
+                text: 'Veuillez patienter',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); },
+                customClass: { popup: 'rounded-4' }
+            });
+
+            fetch(reallocateUrl, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: formData
+            }).then(function (res) {
+                return res.json().then(function(data) {
+                    return { ok: res.ok, status: res.status, data: data };
+                });
+            }).then(function (result) {
+                var data = result.data;
+                if (result.ok && data.success) {
+                    if (data.needs_verification) {
+                        Swal.fire({
+                            title: 'Vérification Sécurisée',
+                            text: data.message || 'Entrez le code à 6 chiffres reçu par SMS',
+                            input: 'text',
+                            inputAttributes: {
+                                maxlength: 6,
+                                autofocus: true,
+                                style: 'text-align: center; letter-spacing: 5px; font-size: 1.5rem; font-weight: bold;'
+                            },
+                            showCancelButton: true,
+                            confirmButtonText: 'Vérifier',
+                            cancelButtonText: 'Annuler',
+                            showLoaderOnConfirm: true,
+                            customClass: { popup: 'rounded-4', confirmButton: 'rounded-pill', cancelButton: 'rounded-pill' },
+                            preConfirm: (code) => {
+                                if (!code || code.length < 4) {
+                                    Swal.showValidationMessage('Veuillez entrer un code valide');
+                                    return false;
+                                }
+                                var confirmData = new FormData();
+                                confirmData.append('code', code);
+                                return fetch("{{ url('budget_reallocate_confirm') }}", {
+                                    method: 'POST',
+                                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                                    body: confirmData
+                                }).then(response => {
+                                    return response.json().then(json => {
+                                        if (!response.ok) throw new Error(json.error || 'Code invalide');
+                                        return json;
+                                    });
+                                }).catch(error => {
+                                    Swal.showValidationMessage(`Erreur: ${error.message}`);
+                                });
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        }).then((finalResult) => {
+                            if (finalResult.isConfirmed && finalResult.value.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Succès !',
+                                    text: 'Le transfert a été validé et le budget a été créé.',
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                    customClass: { popup: 'rounded-4' }
+                                }).then(() => {
+                                    window.location.href = finalResult.value.redirect;
+                                });
+                            }
+                        });
+                    } else if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Échec',
+                        text: data.error || 'Erreur lors de la réallocation',
+                        customClass: { popup: 'rounded-4' }
+                    });
+                }
+            }).catch(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Une erreur est survenue lors du transfert.',
+                    customClass: { popup: 'rounded-4' }
+                });
+            });
+        };
+
+        form.addEventListener('input', function () {
+            window.clearTimeout(pendingTimer);
+            pendingTimer = window.setTimeout(runValidation, 250);
+        });
+
+        form.addEventListener('blur', function () {
+            runValidation();
+        }, true);
+
+        runValidation();
+    })();
+</script>
